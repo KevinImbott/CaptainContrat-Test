@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_30_062956) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_30_073224) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_062956) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "fights", force: :cascade do |t|
+    t.integer "winner_id", null: false
+    t.integer "loser_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loser_id"], name: "index_fights_on_loser_id"
+    t.index ["winner_id"], name: "index_fights_on_winner_id"
+  end
+
   create_table "persos", force: :cascade do |t|
     t.string "name", null: false
     t.integer "health", default: 10
@@ -53,4 +62,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_062956) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "fights", "persos", column: "loser_id"
+  add_foreign_key "fights", "persos", column: "winner_id"
 end
