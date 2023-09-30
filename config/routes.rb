@@ -2,9 +2,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  # root 'pages#index'
+  root 'pages#index'
 
-  root 'persos#index'
+  # root 'persos#index'
+
+  get 'persos', to: 'persos#index'
 
   resources :persos, only: %i[create show update destroy]
 end

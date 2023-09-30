@@ -10,6 +10,7 @@ class CreatePersos < ActiveRecord::Migration[7.0]
       t.integer :level, default: 1
       t.float :experience, default: 0.0
 
+      t.index :name, unique: true
       t.timestamps
     end
   end

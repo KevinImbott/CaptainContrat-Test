@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Liste des personnages</title>
+  <style>
+    .bg {
+      background-image: url("https://media.discordapp.net/attachments/1128386944578093217/1157570887898365962/pewniett_center_of_an_arena_cartoon_wondorfull_colors_game_coll_ff957c2e-b263-4bd0-9185-f97f4dd0607f.png?ex=65191766&is=6517c5e6&hm=cc76d02139f7509c08d8e1f83703769accf52662d29f014ff5be6d951fdfd401&=&width=1670&height=936");
+      background-size: cover;
+      background-position: center;
+      /* overflow: hidden; */
+    }
+
+    .title {
+      text-align: center;
+      color: white;
+      font-size: 50px;
+      padding-top: 50px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      align-items: start;
+      justify-content: space-around;
+    }
+
+    .input {
+      width: 300px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: 2px solid black;
+      text-align: center;
+      cursor: pointer;
+    }
+    .input:hover {
+      /* background-color: #a3bcc9; */
+      border: 2px solid #5295BA;
+    }
+
+    .perso_card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 40px;
+      width: 200px;
+    }
+
+    .perso_card:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
+
+
+
+    .competencies_container {
+      margin-top: 10px;
+      width: 100%;
+      height: 300px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      justify-content: space-around;
+      border-radius: 20px;
+      justify-content: center;
+    }
+    
+    .avatar {
+      width: 100%;
+      height: 200px;
+      border-radius: 40px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border: 2px solid #042a3f;
+    }
+
+    .champ_name {
+      font-size: 25px;
+      color: #042a3f;
+    }
+
+    .button {
+      width: 200px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: 2px solid #042a3f;
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+      margin-left: 42%;
+      cursor: pointer;
+      background-color: #5295BA;
+    }
+    .button:disabled {
+      background-color: #a3bcc9;
+      border: 2px solid #a3bcc9;
+    }
+    .button:hover {
+      background-color: #a3bcc9;
+      border: 2px solid #5295BA;
+    }
+
+    .attribute {
+      width: 100%;
+      font-size: 15px;
+      flex-direction: row;
+      display: flex;
+      justify-content: space-evenly;
+      color: #042a3f;
+    }
+
+  </style>
+</head>
+<body class="bg">
+  <a href="/">Home</a>
+  <h1 class="title">Vos champions</h1>
+
+  <div class="container">
+    <% @persos.each do |perso| %>
+      <div class="perso_card">
+        <img class="avatar"src="<%= "#{perso.avatar.url}"%>">
+        <h2 class="champ_name"><%= perso.name %></h2>
+        <div class="competencies_container">
+          <% perso.attributes.except("id", "name", "created_at", "updated_at").each do |k, v| %>
+              <div class="attribute">
+                <p style="font-weight: bold; justify-self: flex-start;">
+                  <%= "#{k} :" %>
+                </p>
+                <p>
+                  <%= "#{v}" %>
+                </p>
+              
+              </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <button class="button" disabled>Créer un nouveau champion</button>
+
+  <script>
+    const personnage1Input = document.getElementById('personnage1');
+    const personnage2Input = document.getElementById('personnage2');
+    const combattezButton = document.getElementById('combattez');
+    const champImage = document.getElementById('avatar1');
+    
+    // Vérifie si les deux inputs ont une valeur pour activer le bouton "Combattre"
+    function checkInputs() {
+      if (personnage1Input.value && personnage2Input.value) {
+        combattezButton.disabled = false;
+      } else {
+        combattezButton.disabled = true;
+      }
+    }
+
+    // Ajoute un écouteur d'événement aux inputs
+
+    personnage1Input.addEventListener('change', function() {
+      // Retrieve the selected champion value
+
+      const selectedChampion1 = @persos.find(perso => perso.name === personnage2Input.value);
+      champImage.src = selectedChampion1.avatar.url;
+
+      console.log(selectedChampion1);
+      // Perform any desired action with the selected champion value
+      console.log('Selected champion1: ' + selectedChampion1);
+    });
+
+    personnage2Input.addEventListener('change', function() {
+      // Retrieve the selected champion value
+      const selectedChampion2 = personnage2Input.value;
+
+      // Perform any desired action with the selected champion value
+      console.log('Selected champion2: ' + selectedChampion2);
+    });
+
+  </script>
+</body>
+</html>

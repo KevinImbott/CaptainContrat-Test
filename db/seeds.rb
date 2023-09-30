@@ -8,7 +8,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 6.times do
-  perso = Perso.create!(name: Faker::Fantasy::Tolkien.character)
+  perso = Perso.create!(name: Faker::Name.first_name)
   file = URI.open(Faker::Avatar.image)
   perso.avatar.attach(io: file, filename: 'nes.png', content_type: 'image/png')
 end
