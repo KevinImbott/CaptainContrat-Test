@@ -6,7 +6,5 @@ Rails.application.routes.draw do
 
   # root 'persos#index'
 
-  get 'champions', to: 'champions#index'
-
-  resources :champions, only: %i[create show update destroy]
+  resources :champions, only: %i[index create show update destroy]
 end

@@ -14,7 +14,12 @@ class ChampionsController < ApplicationController
   end
 
   def show
-    render json: champion
+    @champion = champion
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @champion }
+    end
   end
 
   def update

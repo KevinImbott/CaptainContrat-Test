@@ -21,41 +21,63 @@
       display: flex;
       flex-direction: row;
       align-items: start;
-      flex-wrap: wrap;
-      justify-content: center;
-      overflow: scroll;
-      height: 60vh;
+      justify-content: space-around;
     }
+
+    .input {
+      width: 300px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: 2px solid black;
+      text-align: center;
+      cursor: pointer;
+    }
+    .input:hover {
+      /* background-color: #a3bcc9; */
+      border: 2px solid #5295BA;
+    }
+
     .perso_card {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 0px 40px 40px 40px;
-
-
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 40px;
       width: 200px;
-
-      margin-right: 20px;
-      margin-bottom: 20px;
     }
 
     .perso_card:hover {
       background-color: rgba(255, 255, 255, 0.8);
       cursor: pointer;
     }
+
+
+
+    .competencies_container {
+      margin-top: 10px;
+      width: 100%;
+      height: 300px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      justify-content: space-around;
+      border-radius: 20px;
+      justify-content: center;
+    }
     
     .avatar {
       width: 100%;
       height: 200px;
-      border-radius: 0px 40px 40px 40px;
+      border-radius: 40px;
       background-color: rgba(255, 255, 255, 0.4);
       border: 2px solid #042a3f;
     }
 
     .champ_name {
-      padding-left: 5px;
       font-size: 25px;
       color: #042a3f;
     }
@@ -91,71 +113,38 @@
       color: #042a3f;
     }
 
-    .level {
-      color: white;
-      font-size: 20px;
-      background-color: #042a3f;
-      padding: 5px;
-      border-radius: 0px 0px 0px 10px;
-      padding-right: 20px;
-    }
-
-    .avatar_container {
-      width: 100%;
-      height: 200px;
-
-      border-radius: 0px 40px 40px 40px;
-      background-color: rgba(255, 255, 255, 0.4);
-      border: 2px solid #042a3f;
-      display: flex;
-      align-items: start;
-      overflow: hidden;
-      flex-direction: row;
-      justify-content: space-between;
-      background-size: cover;
-      background-position: center;
-    }
-
-
   </style>
 </head>
 <body class="bg">
   <a href="/">Home</a>
-  <h1 class="title">Vos champions</h1>
+  <h1 class="title">Vos @champions</h1>
 
   <div class="container">
-    <% @champions.each do |perso| %>
-      <div class="perso_card" onclick="window.location.href='/champions/<%= perso.id %>'">
-        <div class="avatar_container" style="background-image: url('<%= "#{perso.avatar.url}"%>');">
-          <div class="champ_name">
-            <%= perso.name %>
-          </div>
-          <div class="level">
-            Lvl:  <%= perso.level %>
-          </div>
+      <div class="perso_card">
+        <img class="avatar"src="<%= "#{@champion.avatar.url}"%>">
+        <h2 class="champ_name"><%= @champion.name %></h2>
+        <div class="competencies_container">
+          <% @champion.attributes.except("id", "name", "created_at", "updated_at").each do |k, v| %>
+              <div class="attribute">
+                <p style="font-weight: bold; justify-self: flex-start;">
+                  <%= "#{k} :" %>
+                </p>
+                <p>
+                  <%= "#{v}" %>
+                </p>
+              
+              </div>
+          <% end %>
         </div>
-
       </div>
-    <% end %>
   </div>
-  <button class="button"
-    onclick="showModal()"
-   >Créer un nouveau champion</button>
-
-    <!-- Modal -->
-  <div id="modal" style="display: none;">
-    <h3> KAZOEK </h3>
-
-  </div>
-
+  <button class="button" disabled>Créer un nouveau @champion</button>
 
   <script>
     const personnage1Input = document.getElementById('personnage1');
     const personnage2Input = document.getElementById('personnage2');
     const combattezButton = document.getElementById('combattez');
     const champImage = document.getElementById('avatar1');
-
-
     
     // Vérifie si les deux inputs ont une valeur pour activer le bouton "Combattre"
     function checkInputs() {
@@ -169,22 +158,22 @@
     // Ajoute un écouteur d'événement aux inputs
 
     personnage1Input.addEventListener('change', function() {
-      // Retrieve the selected champion value
+      // Retrieve the selected @champion value
 
-      const selectedChampion1 = @champions.find(perso => perso.name === personnage2Input.value);
-      champImage.src = selectedChampion1.avatar.url;
+      const selected@champion1 = @@champions.find(perso => perso.name === personnage2Input.value);
+      champImage.src = selected@champion1.avatar.url;
 
-      console.log(selectedChampion1);
-      // Perform any desired action with the selected champion value
-      console.log('Selected champion1: ' + selectedChampion1);
+      console.log(selected@champion1);
+      // Perform any desired action with the selected @champion value
+      console.log('Selected @champion1: ' + selected@champion1);
     });
 
     personnage2Input.addEventListener('change', function() {
-      // Retrieve the selected champion value
-      const selectedChampion2 = personnage2Input.value;
+      // Retrieve the selected @champion value
+      const selected@champion2 = personnage2Input.value;
 
-      // Perform any desired action with the selected champion value
-      console.log('Selected champion2: ' + selectedChampion2);
+      // Perform any desired action with the selected @champion value
+      console.log('Selected @champion2: ' + selected@champion2);
     });
 
   </script>
