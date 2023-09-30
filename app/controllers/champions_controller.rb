@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class ChampionsController < ApplicationController
   def index
-    @champions = Champion.all
+    @champions = Champion.all.by_descending_level
 
     respond_to do |format|
       format.html

@@ -5,6 +5,8 @@ class Champion < ApplicationRecord
   validates :speed, presence: true
   validates :luck, presence: true
 
+  scope :by_descending_level, -> { order(level: :desc) }
+
   has_one_attached :avatar
 
   has_many :winned_fights, class_name: 'Recap', foreign_key: 'winner_id'
@@ -24,8 +26,6 @@ class Champion < ApplicationRecord
     (wins.to_f / (wins + losses)).round(2) * 100
   end
 
-  private
-
   # def attack(perso)
   #   perso.defend(attack)
   # end
@@ -34,11 +34,12 @@ class Champion < ApplicationRecord
   #   perso.health -= attack / 2
   # end
 
-  def level_up
+  def level_up!
     self.level += 1
     self.health += 10
     self.attack += 10
     self.speed += 10
+    self.save
   end
 
   def gain_xp
