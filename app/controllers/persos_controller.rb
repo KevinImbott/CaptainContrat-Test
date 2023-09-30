@@ -1,6 +1,12 @@
+# frozen_string_literal: true
 class PersosController < ApplicationController
   def index
-    render json: Perso.all
+    @persos = Perso.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @persos }
+    end
   end
 
   def create

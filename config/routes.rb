@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   root 'persos#index'
 
-  resources :persos, only: %i[index create show update destroy]
+  resources :persos, only: %i[create show update destroy]
 end

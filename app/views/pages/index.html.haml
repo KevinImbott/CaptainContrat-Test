@@ -1,2 +1,25 @@
-%h1
-  Hello World!
+%html
+  %head
+    %title Arène de combat
+    %style
+      .arena
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+      .character
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        background-color: gray;
+        margin: 10px;
+    %script
+      function startCombat() {
+      }
+  %body
+    .arena
+      %h1 Arène de combat
+      %div.character
+        %h2 Personnage 1
+      %div.character
+        %h2 Personnage 2
+      %button{onclick: "startCombat()"} Commencer le combat

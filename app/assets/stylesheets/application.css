@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+ .background-image {
+    background-image: url('assets/images/arena.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }

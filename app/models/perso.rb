@@ -4,4 +4,6 @@ class Perso < ApplicationRecord
   validates :attack, presence: true
   validates :speed, presence: true
   validates :luck, presence: true
+
+  has_one_attached :avatar
 end
