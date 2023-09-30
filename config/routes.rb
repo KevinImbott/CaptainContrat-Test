@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   # root 'persos#index'
 
   resources :champions, only: %i[index create show update destroy]
+
+  resources :battles, only: %i[index create show]
 end

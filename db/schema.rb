@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_30_073224) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_30_160143) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_073224) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "battles", force: :cascade do |t|
+    t.integer "champion_id", null: false
+    t.integer "opponent_id", null: false
+    t.integer "recap_id"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["champion_id"], name: "index_battles_on_champion_id"
+    t.index ["opponent_id"], name: "index_battles_on_opponent_id"
+    t.index ["recap_id"], name: "index_battles_on_recap_id"
+  end
+
   create_table "champions", force: :cascade do |t|
     t.string "name", null: false
     t.integer "health", default: 10
@@ -63,6 +75,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_073224) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "battles", "champions"
+  add_foreign_key "battles", "champions", column: "opponent_id"
+  add_foreign_key "battles", "champions", column: "recap_id"
   add_foreign_key "recaps", "champions", column: "loser_id"
   add_foreign_key "recaps", "champions", column: "winner_id"
 end

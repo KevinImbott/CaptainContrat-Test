@@ -26,13 +26,18 @@ class Champion < ApplicationRecord
     (wins.to_f / (wins + losses)).round(2) * 100
   end
 
-  # def attack(perso)
-  #   perso.defend(attack)
-  # end
+  def attack!(champion)
+    p "#{id} attacks #{champion.id}"
+    champion.defend(attack)
+  end
 
-  # def defend(attack)
-  #   perso.health -= attack / 2
-  # end
+  def defend(attack)
+    p "#{id} defends"
+    p "#{id} loses #{attack / 2} health points"
+    self.health -= attack / 2
+    p "#{id} has #{health} health points left"
+    p "#{id} is dead" if health <= 0
+  end
 
   def level_up!
     self.level += 1
