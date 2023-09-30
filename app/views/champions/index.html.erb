@@ -120,7 +120,7 @@
   <h1 class="title">Vos champions</h1>
 
   <div class="container">
-    <% @persos.each do |perso| %>
+    <% @champions.each do |perso| %>
       <div class="perso_card">
         <img class="avatar"src="<%= "#{perso.avatar.url}"%>">
         <h2 class="champ_name"><%= perso.name %></h2>
@@ -162,7 +162,7 @@
     personnage1Input.addEventListener('change', function() {
       // Retrieve the selected champion value
 
-      const selectedChampion1 = @persos.find(perso => perso.name === personnage2Input.value);
+      const selectedChampion1 = @champions.find(perso => perso.name === personnage2Input.value);
       champImage.src = selectedChampion1.avatar.url;
 
       console.log(selectedChampion1);

@@ -1,4 +1,4 @@
-class Perso < ApplicationRecord
+class Champion < ApplicationRecord
   validates :name, presence: true
   validates :health, presence: true
   validates :attack, presence: true
@@ -30,9 +30,9 @@ class Perso < ApplicationRecord
   #   perso.defend(attack)
   # end
 
-  def defend(attack)
-    perso.health -= attack / 2
-  end
+  # def defend(attack)
+  #   perso.health -= attack / 2
+  # end
 
   def level_up
     self.level += 1

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 class PagesController < ApplicationController
-    def index
-        @persos = Perso.all
+  def index
+    @champions = Champion.all
 
-        respond_to do |format|
-          format.html
-          format.json { render json: @persos }
-        end
+    respond_to do |format|
+      format.html
+      format.json { render json: @champions }
     end
+  end
 end

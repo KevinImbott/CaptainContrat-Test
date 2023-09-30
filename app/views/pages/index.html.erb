@@ -111,19 +111,19 @@
 <body class="bg">
   <h1 class="title">Choisissez vos champions</h1>
 
-  <a class="create_new" href="/persos">Créer un nouveau champion</a>
+  <a class="create_new" href="/champions">Créer un nouveau champion</a>
 
   <div class="container">
     <div class="perso_container">
-      <img class="avatar" id="avatar1" src="<%= "#{@persos.first.avatar.url}"%>"
+      <img class="avatar" id="avatar1" src="<%= "#{@champions.first.avatar.url}"%>"
        alt="Champion 1" width="300" height="300">
       <select id="personnage1" class="input" placeholder="Champion 1">
-        <% @persos.each do |perso| %>
+        <% @champions.each do |perso| %>
           <option value="<%= "#{perso.name}"%>"><%= "#{perso.name}"%></option>
         <% end %>
       </select>
       <div class="competencies_container">
-        <% @persos.first.attributes.each do |k, v| %>
+        <% @champions.first.attributes.each do |k, v| %>
           <% if k != "id" && k != "name" && k != "created_at" && k != "updated_at" %>
             <p><%= "#{k} : #{v}" %></p>
           <% end %>
@@ -133,7 +133,7 @@
     <div class="perso_container">
       <img class="avatar" src="https://media.discordapp.net/attachments/1128386944578093217/1157570887898365962/pewniett_center_of_an_arena_cartoon_wondorfull_colors_game_coll_ff957c2e-b263-4bd0-9185-f97f4dd0607f.png?ex=65191766&is=6517c5e6&hm=cc76d02139f7509c08d8e1f83703769accf52662d29f014ff5be6d951fdfd401&=&width=1670&height=936" alt="Champion 1" width="300" height="300">
       <select id="personnage2" class="input" placeholder="Champion 2">
-        <% @persos.each do |perso| %>
+        <% @champions.each do |perso| %>
           <option value="<%= perso %>"><%= perso.name %></option>
         <% end %>
       </select>
@@ -164,7 +164,7 @@
     personnage1Input.addEventListener('change', function() {
       // Retrieve the selected champion value
 
-      const selectedChampion1 = @persos.find(perso => perso.name === personnage2Input.value);
+      const selectedChampion1 = @champions.find(perso => perso.name === personnage2Input.value);
       champImage.src = selectedChampion1.avatar.url;
 
       console.log(selectedChampion1);

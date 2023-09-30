@@ -39,7 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_073224) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "persos", force: :cascade do |t|
+  create_table "champions", force: :cascade do |t|
     t.string "name", null: false
     t.integer "health", default: 10
     t.integer "attack", default: 1
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_073224) do
     t.float "experience", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_persos_on_name", unique: true
+    t.index ["name"], name: "index_champions_on_name", unique: true
   end
 
   create_table "recaps", force: :cascade do |t|
@@ -63,6 +63,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_073224) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "recaps", "persos", column: "loser_id"
-  add_foreign_key "recaps", "persos", column: "winner_id"
+  add_foreign_key "recaps", "champions", column: "loser_id"
+  add_foreign_key "recaps", "champions", column: "winner_id"
 end

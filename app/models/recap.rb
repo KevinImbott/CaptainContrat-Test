@@ -1,6 +1,6 @@
 class Recap < ApplicationRecord
-  belongs_to :winner, class_name: 'Perso'
-  belongs_to :loser, class_name: 'Perso'
+  belongs_to :winner, class_name: 'Champion'
+  belongs_to :loser, class_name: 'Champion'
 
 #   before_create :fight!
 
