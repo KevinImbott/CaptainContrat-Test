@@ -10,5 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_30_060024) do
+  create_table "persos", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "health", default: 10
+    t.integer "attack", default: 1
+    t.integer "speed", default: 1
+    t.integer "luck", default: 1
+    t.integer "level", default: 1
+    t.float "experience", default: 0.0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
