@@ -38,6 +38,7 @@ class Battle < ApplicationRecord
   def wins!
     self.winner = champion.health.positive? ? champion : opponent
     winner.gain_xp
+    winner.generate_equipment!
   end
 
   def losses!

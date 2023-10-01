@@ -67,13 +67,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_01_195058) do
     t.index ["name"], name: "index_champions_on_name", unique: true
   end
 
-  create_table "equipment", force: :cascade do |t|
+  create_table "equipments", force: :cascade do |t|
     t.string "type"
-    t.string "name"
     t.integer "rarity"
     t.integer "level"
+    t.boolean "equipped", default: false
+    t.integer "champion_id", null: false
+    t.integer "damage"
+    t.integer "defense"
+    t.integer "speed"
+    t.integer "luck"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["champion_id"], name: "index_equipments_on_champion_id"
   end
 
   create_table "recaps", force: :cascade do |t|
@@ -93,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_01_195058) do
   add_foreign_key "battles", "champions", column: "loser_id"
   add_foreign_key "battles", "champions", column: "opponent_id"
   add_foreign_key "battles", "champions", column: "winner_id"
+  add_foreign_key "equipments", "champions"
   add_foreign_key "recaps", "battles"
   add_foreign_key "recaps", "champions", column: "loser_id"
   add_foreign_key "recaps", "champions", column: "winner_id"

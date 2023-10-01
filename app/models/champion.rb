@@ -12,6 +12,10 @@ class Champion < ApplicationRecord
   has_many :winned_fights, class_name: 'Battle', foreign_key: 'winner_id'
   has_many :lossed_fights, class_name: 'Battle', foreign_key: 'loser_id'
 
+  has_many :equipments, dependent: :destroy
+  has_many :equiped_equipments, -> { where(equipped: true) }, class_name: 'Equipment'
+  has_many :unequiped_equipments, -> { where(equipped: false) }, class_name: 'Equipment'
+
   def wins
     winned_fights.count
   end
@@ -51,6 +55,12 @@ class Champion < ApplicationRecord
     log += "#{name} has #{health} health points left\n"
     log += "#{name} is dead\n\n" if health <= 0
     log
+  end
+
+  def generate_equipment!
+    Equipment.create(
+      champion: self
+    )
   end
 
   def lucky_enough?
