@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :champions, only: %i[index create show update destroy]
 
   resources :battles, only: %i[index create show]
+
+  resources :equipments, only: %i[index show destroy]
 end
