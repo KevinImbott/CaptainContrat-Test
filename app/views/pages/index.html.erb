@@ -17,6 +17,19 @@
       padding-top: 50px;
     }
 
+
+    .perso_card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 0px 40px 40px 40px;
+      width: 200px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+    }
+
     .container {
       display: flex;
       flex-direction: row;
@@ -90,6 +103,40 @@
       border: 2px solid #5295BA;
     }
 
+    .level {
+      color: white;
+      font-size: 20px;
+      background-color: #042a3f;
+      padding: 5px;
+      border-radius: 0px 0px 0px 10px;
+      padding-right: 20px;
+    }
+
+
+    .champ_name {
+      padding-left: 5px;
+      font-size: 25px;
+      color: #042a3f;
+    }
+
+
+    .avatar_container {
+      width: 100%;
+      height: 200px;
+
+      border-radius: 0px 40px 40px 40px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border: 2px solid #042a3f;
+      display: flex;
+      align-items: start;
+      overflow: hidden;
+      flex-direction: row;
+      justify-content: space-between;
+      background-size: cover;
+      background-position: center;
+    }
+
+
     .create_new {
       width: 300px;
       height: 50px;
@@ -114,32 +161,36 @@
   <a class="create_new" href="/champions">Créer un nouveau champion</a>
 
   <div class="container">
-    <div class="perso_container">
-      <img class="avatar" id="avatar1" src="<%= "#{@champions.first.avatar.url}"%>"
-       alt="Champion 1" width="300" height="300">
+    <div class="perso_card">
+      <div class="avatar_container" style="background-image: url('<%= "#{@champions.first.avatar.url}"%>');">
+          <div class="champ_name">
+            <%= @champions.first.name %>
+          </div>
+          <div class="level">
+            Lvl:  <%= @champions.first.level %>
+          </div>
+        </div>
       <select id="personnage1" class="input" placeholder="Champion 1">
         <% @champions.each do |perso| %>
           <option value="<%= "#{perso.name}"%>"><%= "#{perso.name}"%></option>
         <% end %>
       </select>
-      <div class="competencies_container">
-        <% @champions.first.attributes.each do |k, v| %>
-          <% if k != "id" && k != "name" && k != "created_at" && k != "updated_at" %>
-            <p><%= "#{k} : #{v}" %></p>
-          <% end %>
-        <% end %>
-      </div>
     </div>
-    <div class="perso_container">
-      <img class="avatar" src="https://media.discordapp.net/attachments/1128386944578093217/1157570887898365962/pewniett_center_of_an_arena_cartoon_wondorfull_colors_game_coll_ff957c2e-b263-4bd0-9185-f97f4dd0607f.png?ex=65191766&is=6517c5e6&hm=cc76d02139f7509c08d8e1f83703769accf52662d29f014ff5be6d951fdfd401&=&width=1670&height=936" alt="Champion 1" width="300" height="300">
-      <select id="personnage2" class="input" placeholder="Champion 2">
+
+    <div class="perso_card">
+      <div class="avatar_container" style="background-image: url('<%= "#{@champions.second.avatar.url}"%>');">
+          <div class="champ_name">
+            <%= @champions.second.name %>
+          </div>
+          <div class="level">
+            Lvl:  <%= @champions.second.level %>
+          </div>
+        </div>
+      <select id="personnage2"  class="input" placeholder="Champion 2">
         <% @champions.each do |perso| %>
-          <option value="<%= perso %>"><%= perso.name %></option>
+          <option value="<%= "#{perso.name}"%>"><%= "#{perso.name}"%></option>
         <% end %>
       </select>
-      <div class="competencies_container">
-
-      </div>
     </div>
   </div>
   <button id="combattez" class="button" disabled>Combattre</button>
