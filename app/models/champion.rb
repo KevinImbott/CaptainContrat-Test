@@ -43,7 +43,7 @@ class Champion < ApplicationRecord
     #   attack -= shield.defense
     # end
 
-    dmg_taken = rand(attack, (attack * 0.7))
+    dmg_taken = attack
 
     log = "#{name} defends\n"
     log += "#{name} loses #{dmg_taken} health points\n"
