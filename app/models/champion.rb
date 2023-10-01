@@ -26,18 +26,39 @@ class Champion < ApplicationRecord
     (wins.to_f / (wins + losses)).round(2) * 100
   end
 
-  def attack!(champion)
-    p "#{id} attacks #{champion.id}"
-    champion.defend(attack)
+  def attack!(other_champion)
+    # if self.lucky_enough?
+    #   attack += 10
+    # end
+
+    if other_champion.faster_enough?
+      return "#{champion.name} is so fast that he dodges the attack\n"
+    end
+
+    other_champion.defend(attack)
   end
 
   def defend(attack)
-    p "#{id} defends"
-    p "#{id} loses #{attack} health points"
-    self.health -= attack
-    p "#{id} has #{health} health points left"
-    p "#{id} is dead" if health <= 0
-    save
+    # if self.shield?
+    #   attack -= shield.defense
+    # end
+
+    dmg_taken = rand(attack, (attack * 0.7))
+
+    log = "#{name} defends\n"
+    log += "#{name} loses #{dmg_taken} health points\n"
+    self.health -= dmg_taken
+    log += "#{name} has #{health} health points left\n"
+    log += "#{name} is dead\n\n" if health <= 0
+    log
+  end
+
+  def lucky_enough?
+    luck > rand(100)
+  end
+
+  def faster_enough?
+    speed > rand(100)
   end
 
   def level_up!

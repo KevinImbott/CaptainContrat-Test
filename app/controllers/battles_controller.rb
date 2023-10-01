@@ -9,8 +9,6 @@ class BattlesController < ApplicationController
     @battle = Battle.new(battle_params)
     @battle.save
 
-    @battle.fight!
-
     respond_to do |format|
         format.html
         format.json { render json: @battle }

@@ -42,6 +42,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_160143) do
   create_table "battles", force: :cascade do |t|
     t.integer "champion_id", null: false
     t.integer "opponent_id", null: false
+    t.integer "status", default: 0
+    t.text "log"
     t.integer "winner_id"
     t.integer "loser_id"
     t.datetime "created_at", null: false
