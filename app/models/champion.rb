@@ -9,8 +9,8 @@ class Champion < ApplicationRecord
 
   has_one_attached :avatar
 
-  has_many :winned_fights, class_name: 'Recap', foreign_key: 'winner_id'
-  has_many :lossed_fights, class_name: 'Recap', foreign_key: 'loser_id'
+  has_many :winned_fights, class_name: 'Battle', foreign_key: 'winner_id'
+  has_many :lossed_fights, class_name: 'Battle', foreign_key: 'loser_id'
 
   def wins
     winned_fights.count
@@ -33,10 +33,11 @@ class Champion < ApplicationRecord
 
   def defend(attack)
     p "#{id} defends"
-    p "#{id} loses #{attack / 2} health points"
-    self.health -= attack / 2
+    p "#{id} loses #{attack} health points"
+    self.health -= attack
     p "#{id} has #{health} health points left"
     p "#{id} is dead" if health <= 0
+    save
   end
 
   def level_up!
@@ -44,14 +45,15 @@ class Champion < ApplicationRecord
     self.health += 10
     self.attack += 10
     self.speed += 10
-    self.save
+    save
   end
 
   def gain_xp
-    self.xp += 10
-    if xp >= 100
-      level_up
-      self.xp = 0
+    self.experience += 50
+    if experience >= 100
+      level_up!
+      self.experience = 0
     end
+    save
   end
 end

@@ -42,13 +42,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_160143) do
   create_table "battles", force: :cascade do |t|
     t.integer "champion_id", null: false
     t.integer "opponent_id", null: false
-    t.integer "recap_id"
-    t.integer "status", default: 0, null: false
+    t.integer "winner_id"
+    t.integer "loser_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["champion_id"], name: "index_battles_on_champion_id"
+    t.index ["loser_id"], name: "index_battles_on_loser_id"
     t.index ["opponent_id"], name: "index_battles_on_opponent_id"
-    t.index ["recap_id"], name: "index_battles_on_recap_id"
+    t.index ["winner_id"], name: "index_battles_on_winner_id"
   end
 
   create_table "champions", force: :cascade do |t|
@@ -67,8 +68,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_160143) do
   create_table "recaps", force: :cascade do |t|
     t.integer "winner_id", null: false
     t.integer "loser_id", null: false
+    t.integer "battle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["battle_id"], name: "index_recaps_on_battle_id"
     t.index ["loser_id"], name: "index_recaps_on_loser_id"
     t.index ["winner_id"], name: "index_recaps_on_winner_id"
   end
@@ -76,8 +79,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_160143) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "battles", "champions"
+  add_foreign_key "battles", "champions", column: "loser_id"
   add_foreign_key "battles", "champions", column: "opponent_id"
-  add_foreign_key "battles", "champions", column: "recap_id"
+  add_foreign_key "battles", "champions", column: "winner_id"
+  add_foreign_key "recaps", "battles"
   add_foreign_key "recaps", "champions", column: "loser_id"
   add_foreign_key "recaps", "champions", column: "winner_id"
 end

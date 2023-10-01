@@ -8,10 +8,14 @@ class BattlesController < ApplicationController
   def create
     @battle = Battle.new(battle_params)
     @battle.save
+
     @battle.fight!
-    
-    render json: @battle.recap
-    # redirect_to battle_path(@battle)
+
+    respond_to do |format|
+        format.html
+        format.json { render json: @battle }
+        redirect_to @battle
+    end
   end
 
   def show
