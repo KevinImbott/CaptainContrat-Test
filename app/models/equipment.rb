@@ -1,9 +1,25 @@
 class Equipment < ApplicationRecord
     self.table_name = "equipments"
-
+    
     TYPES = %w[Weapon Shield Helmet Gauntlet Boot Chest]
-
+    
     enum rarity: { common: 0, uncommon: 1, rare: 2, epic: 3, legendary: 4 }
+
+    scope :equipped, -> { where(equipped: true) }
+    scope :unequipped, -> { where(equipped: false) }
+
+    scope :weapon, -> { where(type: "Weapon") }
+    scope :shield, -> { where(type: "Shield") }
+    scope :helmet, -> { where(type: "Helmet") }
+    scope :gauntlet, -> { where(type: "Gauntlet") }
+    scope :boot, -> { where(type: "Boot") }
+    scope :chest, -> { where(type: "Chest") }
+
+    scope :common, -> { where(rarity: "common") }
+    scope :uncommon, -> { where(rarity: "uncommon") }
+    scope :rare, -> { where(rarity: "rare") }
+    scope :epic, -> { where(rarity: "epic") }
+    scope :legendary, -> { where(rarity: "legendary") }
 
     after_create :set_defaults
 

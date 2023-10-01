@@ -1,9 +1,8 @@
 class Battle < ApplicationRecord
+  enum status: { pending: 0, completed: 1 }
+  
   belongs_to :champion, class_name: 'Champion'
   belongs_to :opponent, class_name: 'Champion'
-
-  enum status: { pending: 0, completed: 1 }
-
   belongs_to :winner, class_name: 'Champion', optional: true
   belongs_to :loser, class_name: 'Champion', optional: true
 

@@ -5,16 +5,15 @@ class Champion < ApplicationRecord
   validates :speed, presence: true
   validates :luck, presence: true
 
-  scope :by_descending_level, -> { order(level: :desc) }
-
-  has_one_attached :avatar
-
   has_many :winned_fights, class_name: 'Battle', foreign_key: 'winner_id'
   has_many :lossed_fights, class_name: 'Battle', foreign_key: 'loser_id'
-
   has_many :equipments, dependent: :destroy
   has_many :equiped_equipments, -> { where(equipped: true) }, class_name: 'Equipment'
   has_many :unequiped_equipments, -> { where(equipped: false) }, class_name: 'Equipment'
+  has_one_attached :avatar
+  
+  scope :by_descending_level, -> { order(level: :desc) }
+  scope :by_ascending_level, -> { order(level: :asc) }
 
   def wins
     winned_fights.count
