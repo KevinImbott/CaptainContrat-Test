@@ -59,7 +59,6 @@ class Champion < ApplicationRecord
   def generate_equipment!
     Equipment.create(
       champion: self
-      rarity: rand(0..4),
     )
   end
 
