@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Liste des personnages</title>
+  <style>
+    .bg {
+      background-image: url("https://media.discordapp.net/attachments/1128386944578093217/1157570887898365962/pewniett_center_of_an_arena_cartoon_wondorfull_colors_game_coll_ff957c2e-b263-4bd0-9185-f97f4dd0607f.png?ex=65191766&is=6517c5e6&hm=cc76d02139f7509c08d8e1f83703769accf52662d29f014ff5be6d951fdfd401&=&width=1670&height=936");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .title {
+      text-align: center;
+      color: white;
+      font-size: 50px;
+    }
+
+
+    .battles_container {
+      display: flex;
+      flex-direction: column;
+      overflow: scroll;
+      height: 10vh;
+      width: 100%;
+    }
+
+    .header {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      
+      padding: 10px;
+      width: 40%;
+      margin-left: 30%;
+    }
+
+    .logs {
+      background-color: rgba(0, 0, 0, 0.7);
+      margin-left: auto;
+      margin-right: auto;
+      color: white;
+      font-size: 20px;
+      width: 30%;
+      overflow: scroll;
+      height: 50vh;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid white;
+      text-align: start;
+      white-space: pre-line;
+    }
+
+
+  </style>
+</head>
+<body class="bg">
+  <%= render 'components/battle_card', battle: @battle %>
+
+  <p class="logs"> <%= raw @battle.log %> </p>
+</body>
+
+</html>

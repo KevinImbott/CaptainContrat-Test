@@ -2,11 +2,19 @@
 class BattlesController < ApplicationController
   def index
     @battles = Battle.all
-    render json: @battles
+    @battle = Battle.new
+    respond_to do |format|
+      format.html
+  end
   end
 
   def create
-    @battle = Battle.new(battle_params)
+    if battle_params[:champion_id] == battle_params[:opponent_id]
+      render json: { error: 'Champion and opponent must be different' }, status: :bad_request
+      return
+    end
+
+    @battle = Battle.new(champion: champion, opponent: opponent)
     @battle.save
 
     respond_to do |format|
@@ -17,7 +25,10 @@ class BattlesController < ApplicationController
   end
 
   def show
-    render json: battle
+    @battle = battle
+    respond_to do |format|
+      format.html
+    end
   end
 
   private
@@ -28,5 +39,13 @@ class BattlesController < ApplicationController
 
   def battle
     @battle ||= Battle.find(params[:id])
+  end
+
+  def champion
+    @champion ||= Champion.find(battle_params[:champion_id])
+  end
+
+  def opponent
+    @opponent ||= Champion.find(battle_params[:opponent_id])
   end
 end

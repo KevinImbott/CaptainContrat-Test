@@ -23,37 +23,7 @@
       flex-wrap: wrap;
       justify-content: center;
       overflow: scroll;
-      height: 60vh;
-    }
-    .perso_card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 0px 40px 40px 40px;
-      width: 200px;
-      margin-right: 20px;
-      margin-bottom: 20px;
-    }
-
-    .perso_card:hover {
-      background-color: rgba(255, 255, 255, 0.8);
-      cursor: pointer;
-    }
-    
-    .avatar {
-      width: 100%;
-      height: 200px;
-      border-radius: 0px 40px 40px 40px;
-      background-color: rgba(255, 255, 255, 0.4);
-      border: 2px solid #042a3f;
-    }
-
-    .champ_name {
-      padding-left: 5px;
-      font-size: 25px;
-      color: #042a3f;
+      height: 60vh; 
     }
 
     .button {
@@ -77,42 +47,6 @@
       background-color: #a3bcc9;
       border: 2px solid #5295BA;
     }
-
-    .attribute {
-      width: 100%;
-      font-size: 15px;
-      flex-direction: row;
-      display: flex;
-      justify-content: space-evenly;
-      color: #042a3f;
-    }
-
-    .level {
-      color: white;
-      font-size: 20px;
-      background-color: #042a3f;
-      padding: 5px;
-      border-radius: 0px 0px 0px 10px;
-      padding-right: 20px;
-    }
-
-    .avatar_container {
-      width: 100%;
-      height: 200px;
-
-      border-radius: 0px 40px 40px 40px;
-      background-color: rgba(255, 255, 255, 0.4);
-      border: 2px solid #042a3f;
-      display: flex;
-      align-items: start;
-      overflow: hidden;
-      flex-direction: row;
-      justify-content: space-between;
-      background-size: cover;
-      background-position: center;
-    }
-
-
   </style>
 </head>
 <body class="bg">
@@ -120,17 +54,8 @@
   <h1 class="title">Vos champions</h1>
 
   <div class="container">
-    <% @champions.each do |perso| %>
-      <div class="perso_card" onclick="window.location.href='/champions/<%= perso.id %>'">
-        <div class="avatar_container" style="background-image: url('<%= "#{perso.avatar.url}"%>');">
-          <div class="champ_name">
-            <%= perso.name %>
-          </div>
-          <div class="level">
-            Lvl:  <%= perso.level %>
-          </div>
-        </div>
-      </div>
+    <% @champions.each do |champion| %>
+      <%= render 'components/champion_card', small: true, champion: champion %>
     <% end %>
   </div>
   <button class="button"

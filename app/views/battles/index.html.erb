@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Liste des personnages</title>
+  <style>
+    .bg {
+      background-image: url("https://media.discordapp.net/attachments/1128386944578093217/1157570887898365962/pewniett_center_of_an_arena_cartoon_wondorfull_colors_game_coll_ff957c2e-b263-4bd0-9185-f97f4dd0607f.png?ex=65191766&is=6517c5e6&hm=cc76d02139f7509c08d8e1f83703769accf52662d29f014ff5be6d951fdfd401&=&width=1670&height=936");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .title {
+      text-align: center;
+      color: white;
+      font-size: 50px;
+      padding-top: 50px;
+    }
+
+    .battles_container {
+      display: flex;
+      flex-direction: row;
+      overflow: scroll;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      margin-top: 50px;
+      color: white;
+    }
+
+    .button {
+      width: 200px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: 2px solid black;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 100px;
+      margin-left: 40%;
+    }
+
+    .label {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .input {
+      width: 300px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: 2px solid black;
+      text-align: center;
+      cursor: pointer;
+    }
+    .input:hover {
+      /* background-color: #a3bcc9; */
+      border: 2px solid #5295BA;
+    }
+
+    .fields {
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      display: flex;
+    }
+
+
+  </style>
+</head>
+<body class="bg">
+  <h1 class="title">Vos batailles</h1>
+
+
+  <%= form_with(model: @battle, url: battles_path, class: 'battle-form') do |form| %>
+    <% if @battle.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@battle.errors.count, "error") %> prohibited this battle from being saved:</h2>
+        <ul>
+          <% @battle.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="fields">
+      <div class="field">
+        <%= form.label :champion_id, class: "label"%>
+        <%= form.select :champion_id, options_for_select(Champion.all.map { |o| ["#{o.name} (lvl: #{o.level})", o.id] }, @battle.champion_id), {}, class: "input" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :opponent_id, class: "label" %>
+        <%= form.select :opponent_id, options_for_select(Champion.all.map { |o| ["#{o.name} (lvl: #{o.level})", o.id] }, @battle.opponent_id), {}, class: "input" %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit 'Create Battle', class: 'button' %>
+    </div>
+  <% end %>
+</body>
+
+</html>

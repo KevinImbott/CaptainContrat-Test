@@ -34,25 +34,22 @@ class Champion < ApplicationRecord
     #   attack += 10
     # end
 
+
+    log = "#{name} attack #{other_champion.name}<br>"
     if other_champion.faster_enough?
-      return "#{other_champion.name} is so fast that he dodges the attack\n"
+      return "#{other_champion.name} is so fast that he dodges the attack<br>"
     end
 
-    other_champion.defend(total_attack)
+    log += other_champion.defend(total_attack)
   end
 
   def defend(attack)
-    # if self.shield?
-    #   attack -= shield.defense
-    # end
-
     dmg_taken = damage_taken(attack)
 
-    log = "#{name} defends\n"
-    log += "#{name} loses #{dmg_taken} health points\n"
+    log = "#{name} loses #{dmg_taken} health points<br>"
     self.health -= dmg_taken
-    log += "#{name} has #{health} health points left\n"
-    log += "#{name} is dead\n\n" if health <= 0
+    log += "#{name} has #{health} health points left<br><br>"
+    log += "#{name} is dead<br><br>" if health <= 0
     log
   end
 
@@ -63,7 +60,7 @@ class Champion < ApplicationRecord
   end
 
   def damage_taken(attack)
-    total_defense - attack
+    total_defense - attack > 0 ? 0 : attack - total_defense
   end
 
   # Attributes
@@ -94,7 +91,7 @@ class Champion < ApplicationRecord
   end
 
   def total_attack
-    attack + equiped_equipments.sum(:damage)
+    attack + weapon&.damage.to_i
   end
 
   def total_defense
@@ -102,11 +99,16 @@ class Champion < ApplicationRecord
   end
 
   def total_luck
-    luck + equiped_equipments.sum(:luck)
+    luck + gauntlet&.luck.to_i
   end
 
   def total_speed
-    speed + equiped_equipments.sum(:speed)
+    speed + boots&.speed.to_i
+  end
+
+  def wins!
+    gain_xp
+    generate_equipment!
   end
 
   # Equipment

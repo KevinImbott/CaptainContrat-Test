@@ -149,16 +149,7 @@
   <h1 class="title"><%= @champion.name %></h1>
 
   <div class="container">
-      <div class="perso_card">
-        <div class="avatar_container" style="background-image: url('<%= "#{@champion.avatar.url}"%>');">
-          <div class="champ_name">
-            <%= @champion.name %>
-          </div>
-          <div class="level">
-            Lvl:  <%= @champion.level %>
-          </div>
-        </div>
-      </div>
+      <%= render 'components/champion_card', small: false, champion: @champion %>
       <div class="competencies_container">
         <% @champion.attributes.except("id", "name", "created_at", "updated_at").each do |k, v| %>
             <div class="attribute">
@@ -168,48 +159,11 @@
               <p>
                 <%= "#{v}" %>
               </p>
-            
             </div>
         <% end %>
       </div>
+
+      <%= render 'components/champion_equipments', champion: @champion %>
   </div>
-
-  <script>
-    const personnage1Input = document.getElementById('personnage1');
-    const personnage2Input = document.getElementById('personnage2');
-    const combattezButton = document.getElementById('combattez');
-    const champImage = document.getElementById('avatar1');
-    
-    // Vérifie si les deux inputs ont une valeur pour activer le bouton "Combattre"
-    function checkInputs() {
-      if (personnage1Input.value && personnage2Input.value) {
-        combattezButton.disabled = false;
-      } else {
-        combattezButton.disabled = true;
-      }
-    }
-
-    // Ajoute un écouteur d'événement aux inputs
-
-    personnage1Input.addEventListener('change', function() {
-      // Retrieve the selected @champion value
-
-      const selected@champion1 = @@champions.find(perso => perso.name === personnage2Input.value);
-      champImage.src = selected@champion1.avatar.url;
-
-      console.log(selected@champion1);
-      // Perform any desired action with the selected @champion value
-      console.log('Selected @champion1: ' + selected@champion1);
-    });
-
-    personnage2Input.addEventListener('change', function() {
-      // Retrieve the selected @champion value
-      const selected@champion2 = personnage2Input.value;
-
-      // Perform any desired action with the selected @champion value
-      console.log('Selected @champion2: ' + selected@champion2);
-    });
-
-  </script>
 </body>
 </html>

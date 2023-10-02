@@ -7,8 +7,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-6.times do
+10.times do
   champion = Champion.create!(name: Faker::Name.first_name)
   file = URI.open(Faker::Avatar.image)
   champion.avatar.attach(io: file, filename: 'nes.png', content_type: 'image/png')
+end
+
+5.times do
+  champion_id = Champion.all.sample.id
+  opponent_id = Champion.all.sample.id
+
+  until champion_id != opponent_id
+    champion_id = Champion.all.sample.id
+  end
+
+  Battle.create!(champion_id: champion_id, opponent_id: opponent_id)
 end

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px;
+    }
+
+    .title {
+      text-align: center;
+      color: white;
+      font-size: 50px;
+      padding-top: 50px;
+    }
+
+    .winner {
+      text-align: center;
+      color: green;
+      font-size: 30px;
+      /* transform: rotate(30deg); */
+    }
+
+    .loser {
+      text-align: center;
+      color: red;
+      font-size: 30px;
+      /* transform: rotate(-30deg); */
+      /* margin-top: -100px; */
+    }
+
+  </style>
+</head>
+
+<body>
+<div>
+  <div class="container">
+        <div>
+        <h2 class="winner"> WINNER </h2>
+        <%= render 'components/champion_card', small: true, champion: battle.winner %>
+        </div>
+        <h1 class="title"> VS </h1>
+        <div>
+        <h2 class="loser"> LOSER </h2>
+        <%= render 'components/champion_card', small: true, champion: battle.loser %>
+        </div>
+  </div>
+</div>
+
+</body>
+</html>

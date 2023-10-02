@@ -58,7 +58,7 @@ class Equipment < ApplicationRecord
     def set_attribute
         case type
         when "Weapon"
-            self.attack = rarity_randomizer * level
+            self.damage = rarity_randomizer * level
         when "Shield"
             self.defense = rarity_randomizer * level
         when "Helmet"

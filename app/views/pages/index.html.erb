@@ -33,7 +33,11 @@
     .container {
       display: flex;
       flex-direction: row;
-      align-items: start;
+      height: 60%;
+      align-items: center;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
       justify-content: space-around;
     }
 
@@ -160,77 +164,32 @@
 
   <a class="create_new" href="/champions">Créer un nouveau champion</a>
 
-  <div class="container">
-    <div class="perso_card">
-      <div class="avatar_container" style="background-image: url('<%= "#{@champions.first.avatar.url}"%>');">
-          <div class="champ_name">
-            <%= @champions.first.name %>
-          </div>
-          <div class="level">
-            Lvl:  <%= @champions.first.level %>
-          </div>
-        </div>
-      <select id="personnage1" class="input" placeholder="Champion 1">
-        <% @champions.each do |perso| %>
-          <option value="<%= "#{perso.name}"%>"><%= "#{perso.name}"%></option>
-        <% end %>
-      </select>
+  <%= form_with(model: @battle, url: battles_path, class: 'battle-form') do |form| %>
+    <% if @battle.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@battle.errors.count, "error") %> prohibited this battle from being saved:</h2>
+        <ul>
+          <% @battle.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :champion_id %>
+      <%= form.select :champion_id, Champion.all.map { |c| [c.name, c.id] } %>
     </div>
 
-    <div class="perso_card">
-      <div class="avatar_container" style="background-image: url('<%= "#{@champions.second.avatar.url}"%>');">
-          <div class="champ_name">
-            <%= @champions.second.name %>
-          </div>
-          <div class="level">
-            Lvl:  <%= @champions.second.level %>
-          </div>
-        </div>
-      <select id="personnage2"  class="input" placeholder="Champion 2">
-        <% @champions.each do |perso| %>
-          <option value="<%= "#{perso.name}"%>"><%= "#{perso.name}"%></option>
-        <% end %>
-      </select>
+    <div class="field">
+      <%= form.label :opponent_id %>
+      <%= form.select :opponent_id, Champion.all.map { |o| [o.name, o.id] } %>
     </div>
-  </div>
-  <button id="combattez" class="button" disabled>Combattre</button>
 
-  <script>
-    const personnage1Input = document.getElementById('personnage1');
-    const personnage2Input = document.getElementById('personnage2');
-    const combattezButton = document.getElementById('combattez');
-    const champImage = document.getElementById('avatar1');
-    
-    // Vérifie si les deux inputs ont une valeur pour activer le bouton "Combattre"
-    function checkInputs() {
-      if (personnage1Input.value && personnage2Input.value) {
-        combattezButton.disabled = false;
-      } else {
-        combattezButton.disabled = true;
-      }
-    }
+    <div class="actions">
+      <%= form.submit 'Create Battle' %>
+    </div>
+  <% end %>
 
-    // Ajoute un écouteur d'événement aux inputs
-
-    personnage1Input.addEventListener('change', function() {
-      // Retrieve the selected champion value
-
-      const selectedChampion1 = @champions.find(perso => perso.name === personnage2Input.value);
-      champImage.src = selectedChampion1.avatar.url;
-
-      console.log(selectedChampion1);
-      // Perform any desired action with the selected champion value
-      console.log('Selected champion1: ' + selectedChampion1);
-    });
-
-    personnage2Input.addEventListener('change', function() {
-      // Retrieve the selected champion value
-      const selectedChampion2 = personnage2Input.value;
-
-      // Perform any desired action with the selected champion value
-      console.log('Selected champion2: ' + selectedChampion2);
-    });
-
-  </script>
 </body>
 </html>
