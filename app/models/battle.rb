@@ -27,7 +27,6 @@ class Battle < ApplicationRecord
     wins!
     losses!
     log += "#{winner.name} wins!\n"
-    log += "#{loser.name} loses!\n"
     self.log = log
 
     self.status = :completed

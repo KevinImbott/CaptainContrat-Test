@@ -35,10 +35,10 @@ class Champion < ApplicationRecord
     # end
 
     if other_champion.faster_enough?
-      return "#{champion.name} is so fast that he dodges the attack\n"
+      return "#{other_champion.name} is so fast that he dodges the attack\n"
     end
 
-    other_champion.defend(attack)
+    other_champion.defend(total_attack)
   end
 
   def defend(attack)
@@ -46,7 +46,7 @@ class Champion < ApplicationRecord
     #   attack -= shield.defense
     # end
 
-    dmg_taken = attack
+    dmg_taken = damage_taken(attack)
 
     log = "#{name} defends\n"
     log += "#{name} loses #{dmg_taken} health points\n"
@@ -59,15 +59,22 @@ class Champion < ApplicationRecord
   def generate_equipment!
     Equipment.create(
       champion: self
+      rarity: rand(0..4),
     )
   end
 
+  def damage_taken(attack)
+    total_defense - attack
+  end
+
+  # Attributes
+
   def lucky_enough?
-    luck > rand(100)
+    total_luck > rand(100)
   end
 
   def faster_enough?
-    speed > rand(100)
+    total_speed > rand(100)
   end
 
   def level_up!
@@ -85,5 +92,46 @@ class Champion < ApplicationRecord
       self.experience = 0
     end
     save
+  end
+
+  def total_attack
+    attack + equiped_equipments.sum(:damage)
+  end
+
+  def total_defense
+    equiped_equipments.sum(:defense)
+  end
+
+  def total_luck
+    luck + equiped_equipments.sum(:luck)
+  end
+
+  def total_speed
+    speed + equiped_equipments.sum(:speed)
+  end
+
+  # Equipment
+  def weapon
+    equiped_equipments.where(type: 'Weapon').first
+  end
+
+  def shield
+    equiped_equipments.where(type: 'Shield').first
+  end
+
+  def helmet
+    equiped_equipments.where(type: 'Helmet').first
+  end
+
+  def chest
+    equiped_equipments.where(type: 'Chest').first
+  end
+
+  def gauntlet
+    equiped_equipments.where(type: 'Gauntlet').first
+  end
+
+  def boots
+    equiped_equipments.where(type: 'Boot').first
   end
 end
